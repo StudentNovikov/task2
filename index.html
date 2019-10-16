@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task#2 Novikov</title>
+</head>
+
+<body>
+    <button id="fetchButton">Working button</button>
+    <button id="fetchButton2">Broken button</button>
+   
+   <script>
+        const myObject = {
+            title: "Example title#1",
+            body: "This is a story#1.0",
+            rating: 3.4
+        }
+        const myUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+
+        document.getElementById('fetchButton').addEventListener('click', () => {
+            postObject(myObject, myUrl);
+        });
+
+        document.getElementById('fetchButton2').addEventListener('click', () => {
+            postObject(myObject, '$!@ WRONG REQUEST #@%');
+        });
+
+        async function postObject(obj, url) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(obj),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const json = await response.json();
+                console.log('Success:', JSON.stringify(json));
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>
